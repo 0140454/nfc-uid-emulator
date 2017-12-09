@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">NFC UID Emulator</string>
+    <string name="action_settings">Settings</string>
+    <string name="card_default">System Default</string>
+    <string name="hint_add_card">Place your card on the NFC sensor or Add manually.</string>
+    <string name="edit_card_name">Card Name</string>
+    <string name="edit_card_title">Edit Card</string>
+    <string name="edit_card_invalid_data">Please fill in all fields.</string>
+    <string name="action_card_edit">Edit</string>
+    <string name="action_card_remove">Remove</string>
+    <string name="hint_card_read_only">This card is read-only.</string>
+</resources>

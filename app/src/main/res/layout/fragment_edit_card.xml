@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/edit_card_name"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="12dp"
+        android:layout_weight="1"
+        android:hint="@string/edit_card_name"
+        android:singleLine="true" />
+
+    <LinearLayout
+        android:id="@+id/edit_card_bytes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <EditText
+            style="@style/NfcUidField"
+            android:hint="01"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            style="@style/NfcUidField"
+            android:hint="02"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            style="@style/NfcUidField"
+            android:hint="03"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            style="@style/NfcUidField"
+            android:hint="04"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            style="@style/NfcUidField"
+            android:hint="05"
+            android:visibility="gone"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            style="@style/NfcUidField"
+            android:hint="06"
+            android:visibility="gone"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            style="@style/NfcUidField"
+            android:hint="07"
+            android:visibility="gone"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            style="@style/NfcUidField"
+            android:hint="08"
+            android:visibility="gone"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            style="@style/NfcUidField"
+            android:hint="09"
+            android:visibility="gone"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            style="@style/NfcUidField"
+            android:hint="0A"
+            android:visibility="gone"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+</LinearLayout>

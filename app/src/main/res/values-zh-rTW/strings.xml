@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NFC UID Emulator</string>
+    <string name="action_settings">設定</string>
+    <string name="card_default">系統預設</string>
+    <string name="hint_add_card">請將卡片放置於 NFC 感應處，或手動新增卡片。</string>
+    <string name="edit_card_name">卡片名稱</string>
+    <string name="edit_card_title">編輯卡片</string>
+    <string name="edit_card_invalid_data">請填寫所有資訊。</string>
+    <string name="action_card_edit">編輯</string>
+    <string name="action_card_remove">移除</string>
+    <string name="hint_card_read_only">無法變更唯讀卡片。</string>
+</resources>
