@@ -59,7 +59,7 @@ object NfcConfig {
         shellWriter.flush()
         val fileName = shellReader.readLine()
 
-        shellWriter.write("strings \$(ls /system/lib*/*nfc*jni*) | grep etc/$\n")
+        shellWriter.write("strings $(ls /system/lib*/*nfc*jni*) | grep etc/$\n")
         shellWriter.write("exit\n")
         shellWriter.flush()
         shell.waitFor()
