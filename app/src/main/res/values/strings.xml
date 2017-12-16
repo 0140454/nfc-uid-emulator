@@ -8,5 +8,5 @@
     <string name="edit_card_invalid_data">Please fill in all fields.</string>
     <string name="action_card_edit">Edit</string>
     <string name="action_card_remove">Remove</string>
-    <string name="hint_card_read_only">This card is read-only.</string>
+    <string name="card_default_uid">NFC Controller decides</string>
 </resources>

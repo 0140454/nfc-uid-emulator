@@ -235,12 +235,12 @@ class MainActivity : AppCompatActivity() {
         }
         val currentUid = if (cards.none { card ->
             card.uid == nfcHelper!!.getUid()!!
-        }) getString(R.string.card_default) else nfcHelper!!.getUid()!!
+        }) getString(R.string.card_default_uid) else nfcHelper!!.getUid()!!
 
         cardList.add(NfcCard(
                 NfcCard.ID_DEFAULT_CARD,
                 getString(R.string.card_default),
-                getString(R.string.card_default)
+                getString(R.string.card_default_uid)
         ))
         cardList.addAll(cards)
         cardAdapter!!.setCurrentCard(currentUid)

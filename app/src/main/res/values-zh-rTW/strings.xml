@@ -9,5 +9,5 @@
     <string name="edit_card_invalid_data">請填寫所有資訊。</string>
     <string name="action_card_edit">編輯</string>
     <string name="action_card_remove">移除</string>
-    <string name="hint_card_read_only">無法變更唯讀卡片。</string>
+    <string name="card_default_uid">由 NFC Controller 決定</string>
 </resources>
