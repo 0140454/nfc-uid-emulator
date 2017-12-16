@@ -20,16 +20,21 @@ object NfcConfig {
         val shell = Runtime.getRuntime().exec("su")
         val shellWriter = shell.outputStream.bufferedWriter()
 
-        shellWriter.write("mount -o rw,remount $(stat -c '%m' $configPath)\n")
-        if (!File("$configPath.orig").exists()) {
-            shellWriter.write("cp $configPath $configPath.orig\n")
+        with(shellWriter) {
+            write("mount -o rw,remount $(stat -c '%m' $configPath)\n")
+            if (!File("$configPath.orig").exists()) {
+                write("cp $configPath $configPath.orig\n")
+            }
+            write("echo -n '$content' > $configPath\n")
+            write("mount -o ro,remount $(stat -c '%m' $configPath)\n")
+            write("exit\n")
+            flush()
         }
-        shellWriter.write("echo '$content' > $configPath\n")
-        shellWriter.write("mount -o ro,remount $(stat -c '%m' $configPath)\n")
-        shellWriter.write("exit\n")
-        shellWriter.flush()
 
-        return true
+        shell.waitFor()
+        shellWriter.close()
+
+        return File(configPath).readText() == content
     }
 
     fun isNxpController(): Boolean {

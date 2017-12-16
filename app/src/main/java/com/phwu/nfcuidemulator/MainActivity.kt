@@ -15,7 +15,9 @@ import android.widget.AbsListView
 import android.widget.AdapterView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.db.*
+import org.jetbrains.anko.okButton
 import java.math.BigInteger
 
 
@@ -49,7 +51,6 @@ class MainActivity : AppCompatActivity() {
         list_card.setOnItemClickListener { adapterView, _, position, _ ->
             val adapter = adapterView.adapter
             if (adapter is NfcCardArrayAdapter) {
-                adapter.setCurrentCard(adapter.getItem(position).uid)
                 switchCard(adapter.getItem(position))
             }
         }
@@ -218,12 +219,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun switchCard(card: NfcCard) {
+        var result = false
+
         with(nfcHelper!!) {
             stopService()
-            setUid(
+            result = setUid(
                     if (card.id == NfcCard.ID_DEFAULT_CARD) "" else card.uid
             )
             startService()
+        }
+
+        if (result) {
+            cardAdapter!!.setCurrentCard(card.uid)
+        } else {
+            alert(getString(R.string.msg_modify_conf_failed)) {
+                title = getString(R.string.title_operation_failed)
+                okButton { }
+            }.show()
         }
     }
 

@@ -9,4 +9,6 @@
     <string name="action_card_edit">Edit</string>
     <string name="action_card_remove">Remove</string>
     <string name="card_default_uid">NFC Controller decides</string>
+    <string name="msg_modify_conf_failed">Unable to modify NFC configuration.</string>
+    <string name="title_operation_failed">Operation Failed</string>
 </resources>
