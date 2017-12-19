@@ -11,4 +11,7 @@
     <string name="card_default_uid">NFC Controller decides</string>
     <string name="msg_modify_conf_failed">Unable to modify NFC configuration.</string>
     <string name="title_operation_failed">Operation Failed</string>
+    <string name="title_operation_success">Operation Success</string>
+    <string name="action_restore_conf">Restore to original configuration</string>
+    <string name="msg_orig_conf_not_found">Original configuration not found.</string>
 </resources>

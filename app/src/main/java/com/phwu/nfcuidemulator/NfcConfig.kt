@@ -1,6 +1,7 @@
 package com.phwu.nfcuidemulator
 
 import java.io.File
+import java.io.FileNotFoundException
 
 object NfcConfig {
 
@@ -35,6 +36,28 @@ object NfcConfig {
         shellWriter.close()
 
         return File(configPath).readText() == content
+    }
+
+    fun restore(): Boolean {
+        if (!File("$configPath.orig").exists()) {
+            throw FileNotFoundException()
+        }
+
+        val shell = Runtime.getRuntime().exec("su")
+        val shellWriter = shell.outputStream.bufferedWriter()
+
+        with(shellWriter) {
+            write("mount -o rw,remount $(stat -c '%m' $configPath)\n")
+            write("cp $configPath.orig $configPath\n")
+            write("mount -o ro,remount $(stat -c '%m' $configPath)\n")
+            write("exit\n")
+            flush()
+        }
+
+        shell.waitFor()
+        shellWriter.close()
+
+        return File(configPath).readText() == File(configPath + ".orig").readText()
     }
 
     fun isNxpController(): Boolean {

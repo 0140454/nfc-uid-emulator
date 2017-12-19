@@ -12,4 +12,7 @@
     <string name="card_default_uid">由 NFC Controller 決定</string>
     <string name="msg_modify_conf_failed">無法修改 NFC 設定檔。</string>
     <string name="title_operation_failed">操作失敗</string>
+    <string name="title_operation_success">操作成功</string>
+    <string name="action_restore_conf">還原至原始設定檔</string>
+    <string name="msg_orig_conf_not_found">找不到原始設定檔。</string>
 </resources>

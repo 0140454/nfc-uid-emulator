@@ -25,6 +25,10 @@ class NfcHelper(private val applicationContext: Context) {
         return enableNFC(false)
     }
 
+    fun restoreConfiguration(): Boolean {
+        return NfcConfig.restore()
+    }
+
     fun getUid(): String? {
         val data = NfcConfig.get(NIC_CONF_FIELD)
         if (data != null) {

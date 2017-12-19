@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.ContextMenu
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AbsListView
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.content_main.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.db.*
 import org.jetbrains.anko.okButton
+import java.io.FileNotFoundException
 import java.math.BigInteger
 
 
@@ -64,21 +66,51 @@ class MainActivity : AppCompatActivity() {
         loadCards()
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        menuInflater.inflate(R.menu.menu_main, menu)
-//        return true
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        return when (item.itemId) {
-//            R.id.action_settings -> true
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        return when (item.itemId) {
+            R.id.action_restore_conf -> {
+                with(nfcHelper!!) {
+                    try {
+                        stopService()
+                        val result = restoreConfiguration()
+
+                        alert(getString(
+                                when (result) {
+                                    true -> R.string.title_operation_success
+                                    else -> R.string.title_operation_failed
+                                }
+                        )) {
+                            okButton { }
+                        }.show()
+
+                        when (result) {
+                            true -> cardAdapter!!.setCurrentCard(getString(R.string.card_default_uid))
+                            else -> {
+                            }
+                        }
+                    } catch (e: FileNotFoundException) {
+                        alert(getString(R.string.msg_orig_conf_not_found)) {
+                            title = getString(R.string.title_operation_failed)
+                            okButton { }
+                        }.show()
+                    } finally {
+                        startService()
+                    }
+                }
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
     override fun onCreateContextMenu(
             menu: ContextMenu?,
