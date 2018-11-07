@@ -93,17 +93,20 @@ class NfcHelper(private val applicationContext: Context) {
     }
 
     private fun grantSecureSettingsPermission() {
-        val shell = Runtime.getRuntime().exec("su")
-        val shellWriter = shell.outputStream.bufferedWriter()
+        try {
+            val shell = Runtime.getRuntime().exec("su")
+            val shellWriter = shell.outputStream.bufferedWriter()
 
-        with(shellWriter) {
-            write("pm grant ${applicationContext.packageName} android.permission.WRITE_SECURE_SETTINGS\n")
-            write("exit\n")
-            flush()
+            with(shellWriter) {
+                write("pm grant ${applicationContext.packageName} android.permission.WRITE_SECURE_SETTINGS\n")
+                write("exit\n")
+                flush()
+            }
+
+            shell.waitFor()
+            shellWriter.close()
+        } catch (e: Exception) {
         }
-
-        shell.waitFor()
-        shellWriter.close()
     }
 
     private fun enableNFC(enabled: Boolean): Boolean {

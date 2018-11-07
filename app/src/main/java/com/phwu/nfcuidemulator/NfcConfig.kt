@@ -18,22 +18,26 @@ object NfcConfig {
 
     fun save(): Boolean {
         val content = data.toList().joinToString("\n") { (key, value) -> "$key=$value" }
-        val shell = Runtime.getRuntime().exec("su")
-        val shellWriter = shell.outputStream.bufferedWriter()
 
-        with(shellWriter) {
-            write("mount -o rw,remount $(stat -c '%m' $configPath)\n")
-            if (!File("$configPath.orig").exists()) {
-                write("cp $configPath $configPath.orig\n")
+        try {
+            val shell = Runtime.getRuntime().exec("su")
+            val shellWriter = shell.outputStream.bufferedWriter()
+
+            with(shellWriter) {
+                write("mount -o rw,remount $(stat -c '%m' $configPath)\n")
+                if (!File("$configPath.orig").exists()) {
+                    write("cp $configPath $configPath.orig\n")
+                }
+                write("echo -n '$content' > $configPath\n")
+                write("mount -o ro,remount $(stat -c '%m' $configPath)\n")
+                write("exit\n")
+                flush()
             }
-            write("echo -n '$content' > $configPath\n")
-            write("mount -o ro,remount $(stat -c '%m' $configPath)\n")
-            write("exit\n")
-            flush()
-        }
 
-        shell.waitFor()
-        shellWriter.close()
+            shell.waitFor()
+            shellWriter.close()
+        } catch (e: Exception) {
+        }
 
         return File(configPath).readText() == content
     }
@@ -43,19 +47,22 @@ object NfcConfig {
             throw FileNotFoundException()
         }
 
-        val shell = Runtime.getRuntime().exec("su")
-        val shellWriter = shell.outputStream.bufferedWriter()
+        try {
+            val shell = Runtime.getRuntime().exec("su")
+            val shellWriter = shell.outputStream.bufferedWriter()
 
-        with(shellWriter) {
-            write("mount -o rw,remount $(stat -c '%m' $configPath)\n")
-            write("cp $configPath.orig $configPath\n")
-            write("mount -o ro,remount $(stat -c '%m' $configPath)\n")
-            write("exit\n")
-            flush()
+            with(shellWriter) {
+                write("mount -o rw,remount $(stat -c '%m' $configPath)\n")
+                write("cp $configPath.orig $configPath\n")
+                write("mount -o ro,remount $(stat -c '%m' $configPath)\n")
+                write("exit\n")
+                flush()
+            }
+
+            shell.waitFor()
+            shellWriter.close()
+        } catch (e: Exception) {
         }
-
-        shell.waitFor()
-        shellWriter.close()
 
         return File(configPath).readText() == File(configPath + ".orig").readText()
     }
